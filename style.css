@@ -744,68 +744,81 @@ p {
 
 /* Navigation */
 
+/* Navigation */
 .navbar {
     position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    /* Allocated space */
+    z-index: 1000;
+
+    /* Layout Container Settings */
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    /* Align top so we can pad down */
+    padding-top: 20px;
+    pointer-events: none;
+    /* Let clicks pass through the empty areas */
+}
+
+/* The Visual Background Shape */
+.navbar::before {
+    content: '';
+    position: absolute;
     top: 20px;
+    /* Initial Offset */
     left: 50%;
     transform: translateX(-50%);
     width: 90%;
     max-width: 1200px;
     height: 80px;
-
-    /* Resting State: Glossy Orange Capsule */
+    border-radius: 50px;
     background: rgba(232, 141, 48, 0.85);
+    /* Orange */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 8px 32px rgba(232, 141, 48, 0.2);
-    border-radius: 50px;
-
-    display: flex;
-    align-items: center;
-    z-index: 1000;
-    transition: all 0.4s ease-in-out;
-    /* Smooth, predictable movement */
-
-    /* Ensure padding/layout is stable */
-    padding: 0 20px;
+    transition: all 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
+    pointer-events: auto;
+    /* Capture clicks on the bar itself */
 }
 
-/* Hover State: Full Width Navy Rectangular Header */
-.navbar:hover {
+/* Hover State: Background Expands */
+.navbar:hover::before {
     top: 0;
-    left: 0;
-    transform: none;
-    /* Reset centering transform */
     width: 100%;
     max-width: 100%;
     height: 100px;
-    /* Increase height but manage content pos via padding */
-    padding-top: 20px;
-    /* Pushes content down to match original vertical center */
-
     border-radius: 0;
     background: rgba(26, 43, 73, 0.98);
-    /* Deep Navy */
+    /* Navy */
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
 }
 
-/* Constrain container width on hover to prevent horizontal jumping */
 .navbar:hover .nav-container {
     width: 90%;
+    /* Maintain content width */
 }
-
 
 /* Container inside navbar to keep content centered */
 .nav-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
+    width: 90%;
     max-width: 1200px;
     margin: 0 auto;
+    height: 80px;
+    /* Match initial height of shape */
+    pointer-events: auto;
+    /* Re-enable clicks for content */
 }
 
 
@@ -821,8 +834,14 @@ p {
 .logo img {
     height: 55px;
     width: auto;
-    filter: drop-shadow(0 0 5px rgba(232, 141, 48, 0.3));
+    /* Default: Blue/Navy Glow (since background is Orange) */
+    filter: drop-shadow(0 0 8px rgba(26, 43, 73, 0.8)) drop-shadow(0 0 15px rgba(26, 43, 73, 0.5));
     transition: var(--transition);
+}
+
+.navbar:hover .logo img {
+    /* Hover (Navy Bg): Golden/Orange Glow */
+    filter: drop-shadow(0 0 8px rgba(232, 141, 48, 0.8)) drop-shadow(0 0 15px rgba(232, 141, 48, 0.6));
 }
 
 .logo:hover img {
@@ -1450,13 +1469,15 @@ svg {
 /* Listings */
 
 .listings-grid {
-
     display: grid;
-
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-
     gap: 30px;
+}
 
+@media (max-width: 992px) {
+    .listings-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -1534,11 +1555,9 @@ svg {
 
 
 .tag.type-rent {
-
     background: var(--white);
-
-    color: var(--primary-color);
-
+    color: #000000;
+    /* Black text */
 }
 
 
@@ -1854,17 +1873,15 @@ footer {
 
 
 .footer-logo {
-
-    font-family: var(--font-logo);
-
+    font-family: var(--font-heading);
+    /* Use heading font for consistency or Boldonse if imported */
     font-size: 2.5rem;
-
     font-weight: 400;
-
-    margin-bottom: 10px;
-
+    margin-bottom: 20px;
     color: var(--accent-color);
-
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
 
@@ -1881,63 +1898,124 @@ footer {
 
 @media (max-width: 768px) {
 
-    .nav-links {
-
-        display: none;
-
-        position: absolute;
-
-        top: 80px;
-
+    /* Classic Mobile Navbar with Gradient */
+    .navbar {
+        top: 0;
         left: 0;
-
         width: 100%;
-
-        background: #0F2027;
-
-        /* Solid color for mobile menu */
-
-        flex-direction: column;
-
-        padding: 20px;
-
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-
+        max-width: 100%;
+        height: 70px;
+        padding: 0;
+        align-items: center;
+        /* Disable desktop pointer event hacks */
+        pointer-events: auto;
     }
 
+    /* Force the background shape to be the navbar itself on mobile */
+    .navbar::before {
+        top: 0;
+        width: 100%;
+        max-width: 100%;
+        height: 100%;
+        border-radius: 0;
+        transform: none;
+        left: 0;
+        /* Flowing Gradient: Orange to Navy */
+        background: linear-gradient(90deg, rgba(232, 141, 48, 0.95), rgba(26, 43, 73, 0.95));
+        border: none;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
 
+    /* Disable Hover Expansion on Mobile */
+    .navbar:hover::before {
+        height: 100%;
+        border-radius: 0;
+        background: linear-gradient(90deg, rgba(232, 141, 48, 0.95), rgba(26, 43, 73, 0.95));
+    }
+
+    .nav-container {
+        width: 90%;
+        height: 100%;
+    }
+
+    /* Mobile Menu - Transparent "Ladder" Style */
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: 70px;
+        /* Below navbar */
+        left: 0;
+        width: 100%;
+        background: transparent;
+        /* Removed dark bg */
+        backdrop-filter: blur(10px);
+        /* Clean glass look */
+        -webkit-backdrop-filter: blur(10px);
+        flex-direction: column;
+        padding: 20px;
+        height: auto;
+        box-shadow: none;
+        /* Removed heavy shadow */
+        transform: none;
+        border: none;
+        border-radius: 0;
+    }
 
     .nav-links.active {
-
         display: flex;
-
+        animation: fadeIn 0.3s ease forwards;
     }
 
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+        }
 
+        to {
+            opacity: 1;
+        }
+    }
+
+    /* Capsule Ladder Items */
+    .nav-links li {
+        width: 100%;
+        margin-bottom: 8px;
+        /* Reduced gap */
+    }
+
+    .nav-links li:last-child {
+        margin-bottom: 0;
+    }
+
+    .nav-links li a {
+        display: block;
+        width: 100%;
+        padding: 10px 20px;
+        border-radius: 50px;
+        /* Gradient Capsule */
+        background: linear-gradient(90deg, rgba(232, 141, 48, 0.9), rgba(232, 141, 48, 0.7));
+        color: white;
+        text-align: center;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        font-weight: 600;
+        letter-spacing: 1px;
+    }
+
+    .nav-links li a:active {
+        transform: scale(0.98);
+    }
 
     .hamburger {
-
         display: block;
-
     }
-
-
 
     .hero-content h1 {
-
         font-size: 2.5rem;
-
     }
-
-
 
     .hero-buttons {
-
         flex-direction: column;
-
     }
-
-
 
     .contact-wrapper {
         grid-template-columns: 1fr;
@@ -1945,51 +2023,36 @@ footer {
 }
 
 @media (max-width: 480px) {
-    /* Mobile Phone Specific Adjustments */
-
     .navbar {
-        height: 70px;
-        /* Reduced height for mobile */
-        padding: 5px 15px;
-        /* Tighter padding */
-        border-radius: 35px;
-        /* match smaller height */
-        width: 95%;
-        /* Wider on small screens */
+        height: 60px;
+    }
+
+    .navbar::before {
+        height: 100%;
+    }
+
+    .nav-links {
+        top: 60px;
     }
 
     .logo img {
         height: 35px;
-        /* Smaller logo icon */
     }
 
     .brand-name {
         font-size: 1.2rem;
-        /* Much smaller text to fit */
     }
 
     .tagline {
         display: none;
-        /* Hide tagline on very small screens to save space */
     }
 
     .hamburger span {
         width: 20px;
-        /* Slightly smaller hamburger */
     }
 
-    /* Hero adjustments */
     .hero-content h1 {
         font-size: 2rem;
-        /* Smaller hero title */
-    }
-
-    .hero-content p {
-        font-size: 1rem;
-    }
-
-    .hero-buttons {
-        width: 100%;
     }
 
     .hero-buttons .btn {
@@ -2043,10 +2106,10 @@ footer {
 .sidebar-filters {
     width: 280px;
     flex-shrink: 0;
-    background: rgba(255, 255, 255, 0.8);
-    /* Light premium background */
+    background: rgba(26, 43, 73, 0.95);
+    /* Dark premium background */
     backdrop-filter: blur(15px);
-    border-right: 1px solid rgba(212, 175, 55, 0.1);
+    border-right: 1px solid rgba(232, 141, 48, 0.2);
     padding: 30px;
     border-radius: 10px;
     height: calc(100vh - 120px);
@@ -2097,33 +2160,26 @@ footer {
 
 
 .filter-header h3 {
-
     font-size: 1.5rem;
-
-    color: var(--secondary-color);
-
+    color: var(--accent-color);
+    /* Orange Text */
     margin-bottom: 0;
-
 }
 
-
-
 .close-btn {
-
     background: none;
-
     border: none;
-
-    color: var(--secondary-color);
-
-    font-size: 2rem;
-
+    color: var(--accent-color);
+    /* Orange Cross */
+    font-size: 2.5rem;
     cursor: pointer;
-
     display: none;
+    line-height: 0.8;
+    transition: transform 0.3s ease;
+}
 
-    /* Only show on mobile */
-
+.close-btn:hover {
+    transform: rotate(90deg);
 }
 
 
@@ -2157,14 +2213,11 @@ footer {
 
 
 .checkbox-group label {
-
     display: flex;
-
     align-items: center;
-
     gap: 10px;
-
-    color: var(--secondary-color);
+    color: #ffffff;
+    /* White text as requested */
 
     font-weight: 400;
 
@@ -2211,59 +2264,159 @@ footer {
 
 
 .top-bar {
-
     display: flex;
-
     justify-content: space-between;
-
     align-items: center;
-
     margin-bottom: 30px;
-
-    background: rgba(15, 32, 39, 0.4);
-
-    backdrop-filter: blur(10px);
-
-    padding: 15px 20px;
-
-    border-radius: 10px;
-
-    border: 1px solid rgba(255, 255, 255, 0.05);
-
+    background: #ffffff;
+    /* Clean white toolbar */
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    padding: 15px 25px;
+    border-radius: 50px;
+    /* Capsule container */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    flex-wrap: wrap;
+    gap: 15px;
 }
-
-
 
 .result-count {
-
     color: var(--secondary-color);
-
+    font-weight: 500;
+    font-size: 0.95rem;
 }
-
-
 
 .sort-select {
-
-    padding: 8px 15px;
-
-    background: #0F2027;
-
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
+    padding: 10px 25px;
+    background: #ffffff;
+    border: 1px solid #e0e0e0;
     color: var(--secondary-color);
-
-    border-radius: 5px;
-
+    border-radius: 50px;
+    font-family: var(--font-body);
+    font-weight: 500;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23E88D30' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 16px;
+    padding-right: 45px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03);
 }
 
+.sort-select:hover,
+.sort-select:focus {
+    border-color: var(--accent-color);
+    box-shadow: 0 4px 15px rgba(232, 141, 48, 0.1);
+}
 
+.sort-select option {
+    color: var(--text-color);
+    padding: 10px;
+    background: #fff;
+}
 
 .filter-toggle-btn {
-
     display: none;
+    /* Hidden by default on desktop */
+    padding: 10px 25px;
+    border-radius: 50px;
+    border: 1px solid var(--accent-color);
+    background: transparent;
+    color: var(--accent-color);
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+}
 
-    /* Show only when sidebar is hidden or on mobile */
+.filter-toggle-btn:hover {
+    background: var(--accent-color);
+    color: white;
+}
 
+/* Sidebar Smooth Transition */
+.sidebar-filters {
+    /* Existing styles preserved... */
+    transform: translateX(0);
+    /* Visible on desktop */
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: 1001;
+    /* Ensure above overlay */
+}
+
+/* Mobile Top Bar Layout */
+@media (max-width: 992px) {
+    .sidebar-filters {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 300px;
+        transform: translateX(-100%);
+        /* Hidden off-screen */
+        background: #1a2b49;
+        /* Dark Navy for Mobile */
+        box-shadow: 5px 0 30px rgba(0, 0, 0, 0.3);
+        z-index: 2000;
+        /* High z-index */
+        border-radius: 0;
+        border-right: none;
+        overflow-y: auto;
+    }
+
+    .sidebar-filters.active {
+        transform: translateX(0);
+    }
+
+    .filter-toggle-btn {
+        display: inline-block;
+    }
+
+    .top-bar {
+        border-radius: 20px;
+        /* Less round on mobile to fit content */
+        justify-content: center;
+        padding: 20px;
+    }
+
+    /* Mobile Layout: Row 1 (Filters & Sort), Row 2 (Count) */
+    .top-bar {
+        display: grid;
+        grid-template-areas:
+            "filter sort"
+            "count count";
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+        justify-items: center;
+    }
+
+    .filter-toggle-btn {
+        grid-area: filter;
+        width: 100%;
+        text-align: center;
+    }
+
+    .sort-select {
+        grid-area: sort;
+        width: 100%;
+        text-align: left;
+        /* Better for text alignment inside */
+    }
+
+    .result-count {
+        grid-area: count;
+        font-size: 0.9rem;
+        opacity: 0.8;
+    }
+
+    .close-btn {
+        display: block;
+        /* Show close button on mobile sidebar */
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
 }
 
 
@@ -2459,13 +2612,22 @@ footer {
 /* Responsive adjustment for smaller screens */
 
 @media (max-width: 1200px) {
-
     .property-page-container .listings-grid {
-
         grid-template-columns: repeat(2, 1fr);
+    }
+}
 
+@media (max-width: 992px) {
+    .property-page-container .listings-grid {
+        grid-template-columns: 1fr;
+        /* Force single column on mobile/tablet */
+        padding-left: 0;
     }
 
+    .property-page-container {
+        display: block;
+        /* Stack layout on mobile */
+    }
 }
 
 
