@@ -235,11 +235,374 @@ h2 {
 
 
 p {
-
     margin-bottom: 15px;
-
     color: var(--secondary-color);
+    line-height: 1.6;
+    /* Improved readability */
+}
 
+/* --- New Professional Classes (Replacing Inline Styles) --- */
+
+/* Market Section */
+.market-layout {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+}
+
+.market-content {
+    flex: 1;
+    min-width: 300px;
+}
+
+.market-content h3 {
+    color: var(--secondary-color);
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.market-content p {
+    color: var(--secondary-color);
+}
+
+.market-list {
+    list-style: disc;
+    padding-left: 20px;
+    color: var(--secondary-color);
+    margin-bottom: 30px;
+}
+
+.market-image {
+    flex: 1;
+    min-width: 300px;
+    height: 400px;
+    /* Taller for better impact */
+    background-size: cover;
+    background-position: center;
+    border-radius: 20px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* Features Section (Why Choose Us) */
+.features-grid {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.feature-card {
+    flex: 1;
+    min-width: 280px;
+    text-align: center;
+    padding: 40px 30px;
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    /* Subtle card look */
+    transition: var(--transition);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon-wrapper {
+    margin-bottom: 20px;
+    height: 80px;
+    width: 80px;
+    margin-inline: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(232, 141, 48, 0.1);
+    /* Light orange bg */
+    border-radius: 50%;
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+.feature-card p {
+    color: #555;
+}
+
+/* Testimonials Section */
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.testimonial-text {
+    color: var(--secondary-color);
+    font-style: italic;
+    margin-bottom: 25px;
+    font-size: 1.05rem;
+}
+
+.testimonial-author {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.author-img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.author-info h4 {
+    color: var(--secondary-color);
+    margin: 0;
+    font-size: 1rem;
+}
+
+.author-info small {
+    color: var(--accent-color);
+    font-weight: 500;
+}
+
+/* CTA Section */
+.cta-box {
+    background: linear-gradient(135deg, var(--secondary-color), #f66403);
+    /* More branded gradient */
+    border: 1px solid var(--accent-color);
+    border-radius: 20px;
+    padding: 80px 40px;
+    text-align: center;
+    color: #ffffff;
+    box-shadow: 0 20px 50px rgba(232, 141, 48, 0.2);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Nice graphical element overlay */
+.cta-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('pattern.png');
+    /* Hypothetical pattern or just opacity */
+    opacity: 0.1;
+    pointer-events: none;
+}
+
+.cta-box h2 {
+    color: #ffffff;
+    /* Override default dark header */
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-box p {
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 30px;
+    opacity: 0.9;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.cta-box .btn {
+    position: relative;
+    z-index: 1;
+}
+
+/* Footer Section */
+.footer-content {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1.5fr 1.5fr;
+    /* 4 Columns */
+    gap: 40px;
+    text-align: left;
+    /* Align text left */
+    margin-bottom: 40px;
+}
+
+.footer-column h3 {
+    color: #ffffff;
+    font-size: 1.2rem;
+    margin-bottom: 25px;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.footer-column h3::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 30px;
+    height: 2px;
+    background: var(--accent-color);
+}
+
+.footer-links li {
+    margin-bottom: 12px;
+}
+
+.footer-links a {
+    color: rgba(255, 255, 255, 0.7);
+    transition: 0.3s;
+}
+
+.footer-links a:hover {
+    color: var(--accent-color);
+    padding-left: 5px;
+}
+
+.contact-info-footer li {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.95rem;
+}
+
+.newsletter-input-group {
+    display: flex;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50px;
+    padding: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.newsletter-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 10px 20px;
+    color: white;
+    outline: none;
+}
+
+.newsletter-btn {
+    background: var(--accent-color);
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.3s;
+}
+
+.newsletter-btn:hover {
+    transform: scale(1.1);
+}
+
+/* Floating Helpline */
+.helpline-fab {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 60px;
+    height: 60px;
+    background: var(--accent-color);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 15px rgba(232, 141, 48, 0.4);
+    z-index: 1000;
+    color: white;
+    font-size: 1.5rem;
+    text-decoration: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.helpline-fab:hover {
+    transform: scale(1.1) rotate(10deg);
+}
+
+/* --- Responsive Refinements --- */
+@media (max-width: 992px) {
+    .market-image {
+        height: 300px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+        /* 2x2 grid */
+    }
+}
+
+@media (max-width: 768px) {
+
+    /* Mobile General */
+    h1 {
+        font-size: 2.5rem;
+    }
+
+    h2 {
+        font-size: 2rem;
+    }
+
+    .section {
+        padding: 60px 0;
+    }
+
+    /* Layouts become single column */
+    .market-layout {
+        flex-direction: column;
+    }
+
+    .market-image {
+        width: 100%;
+        height: 250px;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+        /* Stack vertically */
+    }
+
+    .features-grid {
+        flex-direction: column;
+    }
+
+    .cta-box {
+        padding: 50px 20px;
+    }
+
+    /* Navbar Adjustment */
+    .navbar {
+        width: 100%;
+        top: 0;
+        border-radius: 0;
+        padding: 10px 20px;
+    }
+
+    .listing-grid {
+        grid-template-columns: 1fr;
+    }
 }
 
 
@@ -939,6 +1302,23 @@ svg {
 
 }
 
+.services-track .listing-card {
+    min-width: 300px;
+    margin: 0 15px;
+    flex-shrink: 0;
+}
+
+.services-track .listing-image {
+    height: 200px;
+}
+
+/* Developments Stack */
+.developments-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
 
 
 
@@ -1560,11 +1940,64 @@ footer {
 
 
     .contact-wrapper {
-
         grid-template-columns: 1fr;
+    }
+}
 
+@media (max-width: 480px) {
+    /* Mobile Phone Specific Adjustments */
+
+    .navbar {
+        height: 70px;
+        /* Reduced height for mobile */
+        padding: 5px 15px;
+        /* Tighter padding */
+        border-radius: 35px;
+        /* match smaller height */
+        width: 95%;
+        /* Wider on small screens */
     }
 
+    .logo img {
+        height: 35px;
+        /* Smaller logo icon */
+    }
+
+    .brand-name {
+        font-size: 1.2rem;
+        /* Much smaller text to fit */
+    }
+
+    .tagline {
+        display: none;
+        /* Hide tagline on very small screens to save space */
+    }
+
+    .hamburger span {
+        width: 20px;
+        /* Slightly smaller hamburger */
+    }
+
+    /* Hero adjustments */
+    .hero-content h1 {
+        font-size: 2rem;
+        /* Smaller hero title */
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .hero-buttons {
+        width: 100%;
+    }
+
+    .hero-buttons .btn {
+        width: 100%;
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+    }
 }
 
 /* Page Header to clear Fixed Navbar */
